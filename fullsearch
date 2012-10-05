@@ -1,0 +1,21 @@
+#! /bin/bash
+#-------------------------------------------------------------------------
+# Description:
+#		a dir path and search word are given, shows the search results
+# History:
+#		2012-10-05 chain v0.1 Release
+#-------------------------------------------------------------------------
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+file_paths=$(find $1)
+for path in $file_paths
+do
+	if [ -f "$path" ]; then
+		result=$(cat $path | egrep -n --color=auto $2)
+		if [ "$result" != "" ]; then
+			echo "${result} \r\n  |---> ${path}"
+		fi
+	fi
+done
